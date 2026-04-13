@@ -1,0 +1,6 @@
+__pycache__/
+*.pyc
+*.pyo
+scene_*.obj
+contact_forces.csv
+*.qglviewer.view
