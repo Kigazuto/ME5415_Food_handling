@@ -5,6 +5,8 @@ pneumatic gripper** picking food items from a *Source Table* and
 placing them on trays on an *Assembly Table*, in the spirit of the
 food-tray assembly manipulation challenge.
 
+![Demo](Demo.gif)
+
 ## Files
 
 | File | Purpose |
