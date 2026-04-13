@@ -73,13 +73,39 @@ traverse → release cycle.
   objects. Initial cavity pressure is 0.05 so the gripper starts
   slightly pre-curled.
 
-## Dependencies
+## Environment setup
 
-* SOFA v24.12 + the **SoftRobots**, **MultiThreading** and
-  **SofaPython3** plugins (all shipped in
-  `~/sofa-install/extracted/SOFA_v24.12.00_Linux/plugins`).
-* `libpython3.12` from a conda env (`~/anaconda3/envs/sofa`); the
-  launcher already wires `LD_LIBRARY_PATH`.
+This project has been tested on Linux with Python 3.12 in a conda
+environment. The launcher (`run.sh`) assumes you have:
+
+1. **SOFA v24.12** extracted to
+   `~/sofa-install/extracted/SOFA_v24.12.00_Linux/` with the
+   **SofaPython3**, **SoftRobots** and **MultiThreading** plugins
+   (they ship with the binary release — no extra download needed).
+   Grab it from
+   <https://www.sofa-framework.org/download/> (binary release for
+   Linux, v24.12.00).
+
+2. A **conda environment named `sofa`** providing `libpython3.12`
+   that `libSofaPython3.so` can dlopen. Reproduce it with:
+
+   ```bash
+   conda env create -f environment.yml
+   # or, equivalently:
+   conda create -n sofa -c conda-forge python=3.12 numpy scipy
+   ```
+
+   `numpy` is used by `gripper_controller.py` for the
+   contact-force log; `scipy` is pulled in by some SOFA Python
+   modules on import.
+
+3. Edit `run.sh` if your SOFA or conda paths differ from the
+   defaults (`SOFA_ROOT` and `PYLIB_DIR` at the top of the file).
+
+The launcher prepends `$PYLIB_DIR` to `LD_LIBRARY_PATH` and passes
+`-g qt -l SofaPython3` to `runSofa`, which is the combination that
+reliably forwards Ctrl-key events from the GUI to the Python
+controller in SOFA 24.12.
 
 ## Notes
 
